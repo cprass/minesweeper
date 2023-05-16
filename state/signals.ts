@@ -1,4 +1,4 @@
-import { signal, effect, Signal, batch } from "@preact/signals";
+import { batch, effect, Signal, signal } from "@preact/signals";
 import { createGame } from "./utils.ts";
 import { CellState, Game, GameState } from "./types.ts";
 import { produce } from "immer";
@@ -22,7 +22,7 @@ effect(() => {
 });
 
 export const game: Signal<Game> = signal(
-  createGame(width.peek(), height.peek(), mines.peek())
+  createGame(width.peek(), height.peek(), mines.peek()),
 );
 
 // create new game data on restart

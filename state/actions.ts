@@ -1,5 +1,5 @@
 import produce, { enableMapSet } from "immer";
-import { game, width, height, gameState, mines } from "./signals.ts";
+import { game, gameState, height, mines, width } from "./signals.ts";
 import { CellState, GameState } from "./types.ts";
 import { batch } from "@preact/signals";
 
@@ -83,6 +83,9 @@ export function revealField(idx: number) {
       }
 
       const field = draft.fields[idx];
+      if (field?.state === CellState.Flagged) {
+        return;
+      }
       if (field?.isMine) {
         // if mine only reveal one field
         gameState.value = GameState.Lost;
@@ -95,7 +98,7 @@ export function revealField(idx: number) {
 
         // checking winning condition
         const fieldsHidden = draft.fields.filter(
-          (f) => f.state === CellState.Hidden
+          (f) => f.state === CellState.Hidden,
         ).length;
         if (fieldsHidden + draft.flags === draft.mines.size) {
           console.log("winner winner chicken dinner");
@@ -116,6 +119,7 @@ export function quitGame() {
 
 export function setDifficultyLevel(level: 1 | 2 | 3) {
   batch(() => {
+    gameState.value = GameState.Active;
     if (level === 1) {
       width.value = 9;
       height.value = 9;
