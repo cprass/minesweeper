@@ -26,7 +26,6 @@ export default function FlaggedCell({ idx, isMine }: FlaggedCellProps) {
       class={`${BASE_CLASS_NAMES} bg-${backgroundColor} ${
         isActiveGame ? activeGameStyles : inactiveGameStyles
       } p-[4px]`}
-      onContextMenu={(e) => e.preventDefault()}
       disabled={!isActiveGame}
       {...handlers}
     >

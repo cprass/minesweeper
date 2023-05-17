@@ -21,7 +21,6 @@ export default function HiddenCell({ idx }: HiddenCellProps) {
       class={`${BASE_CLASS_NAMES} bg-gray-400 ${
         isActiveGame ? activeGameStyles : inactiveGameStyles
       }`}
-      onContextMenu={(e) => e.preventDefault()}
       {...handlers}
     />
   );
