@@ -98,10 +98,9 @@ export function revealField(idx: number) {
 
         // checking winning condition
         const fieldsHidden = draft.fields.filter(
-          (f) => f.state === CellState.Hidden,
+          (f) => f.state === CellState.Hidden
         ).length;
         if (fieldsHidden + draft.flags === draft.mines.size) {
-          console.log("winner winner chicken dinner");
           gameState.value = GameState.Won;
         }
       }
@@ -121,17 +120,20 @@ export function setDifficultyLevel(level: 1 | 2 | 3) {
   batch(() => {
     gameState.value = GameState.Active;
     if (level === 1) {
+      // 12.34% mines
       width.value = 9;
       height.value = 9;
       mines.value = 10;
     } else if (level === 2) {
+      // 13.28% mines
       width.value = 16;
       height.value = 16;
-      mines.value = 40;
+      mines.value = 34;
     } else if (level === 3) {
+      // 13.33% mines
       width.value = 30;
       height.value = 16;
-      mines.value = 99;
+      mines.value = 64;
     }
   });
 }
