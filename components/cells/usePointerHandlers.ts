@@ -1,37 +1,44 @@
-import { useCallback, useEffect, useMemo, useRef } from "preact/hooks";
+import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { JSX } from "preact";
 import { gameState } from "../../state/signals.ts";
 import { GameState } from "../../state/types.ts";
 import { flagField, revealField } from "../../state/actions.ts";
+import { useSignal } from "@preact/signals";
 
-export default function usePointerHandlers(
-  fieldIdx: number,
-) {
+export default function usePointerHandlers(fieldIdx: number) {
   const isActiveGame = gameState.value === GameState.Active;
 
-  const timeoutId = useRef(0);
-  const hasPointerDown = useRef(false);
+  const timeoutId = useSignal<null | number>(null);
+  const hasActivePointer = useSignal(false);
 
-  useEffect(() => () => {
-    // cancel the timeout when unmounting the component
-    if (timeoutId.current) {
-      clearTimeout(timeoutId.current);
+  const stopTimer = useCallback(() => {
+    const id = timeoutId.peek();
+    if (id != null) {
+      clearTimeout(id);
+      timeoutId.value = null;
     }
-  });
+  }, []);
+
+  useEffect(
+    () => () => {
+      // cancel the timeout when unmounting the component
+      stopTimer();
+    },
+    []
+  );
 
   const onPointerUp = useCallback(
-    (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-
-      if (!hasPointerDown.current) {
+    (e: JSX.TargetedPointerEvent<HTMLButtonElement>) => {
+      if (!e.isPrimary) {
         return;
       }
-      hasPointerDown.current = false;
 
-      if (timeoutId.current) {
-        clearTimeout(timeoutId.current);
-        timeoutId.current = 0;
+      if (!hasActivePointer.peek()) {
+        return;
       }
+      hasActivePointer.value = false;
+
+      stopTimer();
 
       if (e.button === 2) {
         flagField(fieldIdx);
@@ -41,33 +48,41 @@ export default function usePointerHandlers(
         revealField(fieldIdx);
       }
     },
-    [fieldIdx],
+    [fieldIdx]
   );
 
   const onPointerDown = useCallback(
-    (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      hasPointerDown.current = true;
+    (e: JSX.TargetedPointerEvent<HTMLButtonElement>) => {
+      if (!e.isPrimary) {
+        return;
+      }
+
+      hasActivePointer.value = true;
+
       if (isActiveGame) {
-        timeoutId.current = setTimeout(() => {
-          flagField(fieldIdx);
+        timeoutId.value = setTimeout(() => {
+          if (hasActivePointer.peek()) {
+            hasActivePointer.value = false;
+            timeoutId.value = null;
+            flagField(fieldIdx);
+          }
         }, 500);
       }
     },
-    [fieldIdx],
+    [fieldIdx]
   );
 
   const onPointerLeave = useCallback(() => {
-    hasPointerDown.current = false;
-    if (timeoutId.current) {
-      clearTimeout(timeoutId.current);
-      timeoutId.current = 0;
-    }
-  }, []);
+    hasActivePointer.value = false;
+    stopTimer();
+  }, [stopTimer]);
 
-  return useMemo(() => ({
-    onPointerDown,
-    onPointerUp,
-    onPointerLeave,
-  }), [onPointerDown, onPointerUp, onPointerLeave]);
+  return useMemo(
+    () => ({
+      onPointerDown,
+      onPointerUp,
+      onPointerLeave,
+    }),
+    [onPointerDown, onPointerUp, onPointerLeave]
+  );
 }
