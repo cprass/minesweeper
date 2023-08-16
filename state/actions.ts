@@ -2,6 +2,7 @@ import produce, { enableMapSet } from "immer";
 import { game, gameState, height, mines, width } from "./signals.ts";
 import { CellState, GameState } from "./types.ts";
 import { batch } from "@preact/signals";
+import { createGame } from "./utils.ts";
 
 enableMapSet();
 
@@ -87,23 +88,32 @@ export function revealField(idx: number) {
         return;
       }
       if (field?.isMine) {
-        // if mine only reveal one field
-        gameState.value = GameState.Lost;
-        if (field?.state === CellState.Hidden) {
-          field.state = CellState.Triggered;
-        }
-      } else {
-        // otherwise reveil recursively in case of empty fields
-        reveilRecursive(idx);
-
-        // checking winning condition
-        const fieldsHidden = draft.fields.filter(
-          (f) => f.state === CellState.Hidden
-        ).length;
-        if (fieldsHidden + draft.flags === draft.mines.size) {
-          gameState.value = GameState.Won;
+        const isFirst = !draft.flags &&
+          !draft.fields.some((field) => field.state === CellState.Triggered);
+        if (isFirst) {
+          // if this is the first field triggered in the game and it's a mine, recreate the game
+          // making sure that this field is not a mine
+          draft = createGame(width.peek(), height.peek(), mines.peek(), idx);
+        } else {
+          // field is mine, so only reveal one field
+          gameState.value = GameState.Lost;
+          if (field?.state === CellState.Hidden) {
+            field.state = CellState.Triggered;
+          }
+          return draft;
         }
       }
+      // otherwise reveil recursively in case of empty fields
+      reveilRecursive(idx);
+
+      // checking winning condition
+      const fieldsHidden = draft.fields.filter(
+        (f) => f.state === CellState.Hidden,
+      ).length;
+      if (fieldsHidden + draft.flags === draft.mines.size) {
+        gameState.value = GameState.Won;
+      }
+      return draft;
     });
   });
 }

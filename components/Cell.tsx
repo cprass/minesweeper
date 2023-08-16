@@ -19,7 +19,7 @@ export default function Cell({ idx, value }: Props) {
   }
 
   if (value.state === CellState.Hidden) {
-    return <HiddenCell idx={idx} />;
+    return <HiddenCell idx={idx} isMine={value.isMine} />;
   }
 
   if (value.state === CellState.Triggered && value.isMine) {

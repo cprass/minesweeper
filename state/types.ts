@@ -20,4 +20,5 @@ export interface Game {
   fields: CellValue[];
   mines: Set<number>;
   flags: number;
+  debug?: boolean;
 }

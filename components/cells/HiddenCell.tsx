@@ -1,13 +1,14 @@
-import { gameState } from "../../state/signals.ts";
+import { game, gameState } from "../../state/signals.ts";
 import { GameState } from "../../state/types.ts";
 import { BASE_CLASS_NAMES } from "./base.ts";
 import usePointerHandlers from "./usePointerHandlers.ts";
 
 interface HiddenCellProps {
   idx: number;
+  isMine?: boolean;
 }
 
-export default function HiddenCell({ idx }: HiddenCellProps) {
+export default function HiddenCell({ idx, isMine }: HiddenCellProps) {
   const isActiveGame = gameState.value === GameState.Active;
 
   const activeGameStyles = "hover:bg-gray-500";
@@ -22,6 +23,8 @@ export default function HiddenCell({ idx }: HiddenCellProps) {
         isActiveGame ? activeGameStyles : inactiveGameStyles
       }`}
       {...handlers}
-    />
+    >
+      {game.peek().debug && isMine ? "+" : ""}
+    </button>
   );
 }

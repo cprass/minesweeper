@@ -1,4 +1,4 @@
-import { Game, CellState, CellValue } from "./types.ts";
+import { CellState, CellValue, Game } from "./types.ts";
 
 function countNeighbourMines(
   idx: number,
@@ -6,7 +6,7 @@ function countNeighbourMines(
   y: number,
   width: number,
   height: number,
-  mines: Set<number>
+  mines: Set<number>,
 ): number {
   let n = 0;
 
@@ -54,14 +54,21 @@ function countNeighbourMines(
   return n;
 }
 
-export function createGame(width: number, height: number, mines: number): Game {
+export function createGame(
+  width: number,
+  height: number,
+  mines: number,
+  protectedFieldIdx?: number,
+): Game {
   const minesList = new Set<number>();
   const nFields = width * height;
 
   let n = 0;
   while (minesList.size < mines && n <= 9999) {
     const newVal = Math.floor(Math.random() * nFields);
-    minesList.add(newVal);
+    if (protectedFieldIdx == null || newVal !== protectedFieldIdx) {
+      minesList.add(newVal);
+    }
     n++;
   }
 
