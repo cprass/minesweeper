@@ -7,15 +7,17 @@ import Controls from "../components/Controls.tsx";
 
 export default function Game() {
   const w = useComputed(() => {
-    return CELL_BASE_SIZE * width.value +
-      Math.max(0, GAP_BASE_SIZE * (width.value - 1));
+    const cellsWidth = CELL_BASE_SIZE * width.value;
+    const gapsInCellsWidth = Math.max(0, GAP_BASE_SIZE * (width.value - 1));
+    const wrapperPadingWidth = GAP_BASE_SIZE * 4;
+    return scale.value * (cellsWidth + gapsInCellsWidth + wrapperPadingWidth);
   });
 
   return (
     <div
-      class={`w-[${
-        w.value + GAP_BASE_SIZE * 4
-      }px] p-[${GAP_BASE_SIZE}px] bg-gray-100 origin-top scale-[${scale.value}] ease-in-out duration-100 transform-gpu`}
+      class={`w-[${w.value}px] p-[${
+        GAP_BASE_SIZE * scale.value
+      }px] bg-gray-100`}
     >
       <Controls />
       <Banner />

@@ -1,14 +1,15 @@
 import IconWrapper from "./IconWrapper.tsx";
-import { BASE_CLASS_NAMES } from "./base.ts";
+import { useBaseClassNames } from "./useBaseClassNames.ts";
 
 interface ZonkCellProps {
   highlight?: boolean;
 }
 
 export default function ZonkCell({ highlight }: ZonkCellProps) {
+  const classNames = useBaseClassNames();
   return (
     <div
-      class={`${BASE_CLASS_NAMES} ${
+      class={`${classNames} ${
         highlight ? "bg-red-600" : "bg-gray-400"
       } p-[4px] cursor-default`}
       aria-label="A bomb, game over"

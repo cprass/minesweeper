@@ -1,4 +1,4 @@
-import { BASE_CLASS_NAMES } from "./base.ts";
+import { useBaseClassNames } from "./useBaseClassNames.ts";
 
 enum TEXT_COLORS {
   "blue-500" = 1,
@@ -20,9 +20,11 @@ export default function ClearedCell({ neighbourMines }: ClearedCellProps) {
     colorClass = TEXT_COLORS[neighbourMines];
   }
 
+  const classNames = useBaseClassNames();
+
   return (
     <div
-      class={`${BASE_CLASS_NAMES} cursor-default font-bold text-xl bg-gray-200 text-${colorClass}`}
+      class={`${classNames} cursor-default font-bold text-xl bg-gray-200 text-${colorClass}`}
       aria-label="Reveiled cell showing the number of neighbouring mines"
     >
       {neighbourMines > 0 ? neighbourMines : ""}

@@ -1,8 +1,8 @@
 import { useComputed } from "@preact/signals";
-import { GAP_BASE_SIZE } from "../config/index.ts";
 import { mines, scale } from "../state/signals.ts";
 import { ComponentChildren } from "preact";
 import { setDifficultyLevel } from "../state/actions.ts";
+import useBoardGapSize from "./useBoardGapSize.ts";
 
 interface ButtonProps {
   children: ComponentChildren;
@@ -35,9 +35,11 @@ export default function Controls() {
     return 3;
   });
 
+  const gapSize = useBoardGapSize();
+
   return (
     <div
-      class={`p-1 bg-gray-400 mb-[${GAP_BASE_SIZE}px] rounded flex flex-row flex-nowrap justify-between`}
+      class={`p-1 bg-gray-400 mb-[${gapSize.value}px] rounded flex flex-row flex-nowrap justify-between`}
     >
       <div class="flex flex-row flex-nowrap items-center">
         <span class="mr-2">Level:</span>
@@ -74,7 +76,7 @@ export default function Controls() {
           onChange={(e) => {
             const value = Math.min(
               1.5,
-              Math.max(0.5, Number(e.currentTarget.value)),
+              Math.max(0.5, Number(e.currentTarget.value))
             );
             if (!Number.isNaN(value)) {
               scale.value = value;

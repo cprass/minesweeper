@@ -1,8 +1,8 @@
 import { gameState } from "../../state/signals.ts";
 import { GameState } from "../../state/types.ts";
 import IconWrapper from "./IconWrapper.tsx";
-import { BASE_CLASS_NAMES } from "./base.ts";
 import usePointerHandlers from "./usePointerHandlers.ts";
+import { useBaseClassNames } from "./useBaseClassNames.ts";
 
 interface FlaggedCellProps {
   idx: number;
@@ -19,11 +19,12 @@ export default function FlaggedCell({ idx, isMine }: FlaggedCellProps) {
   const inactiveGameStyles = "cursor-default";
 
   const handlers = usePointerHandlers(idx);
+  const classNames = useBaseClassNames();
 
   return (
     <button
       aria-label="A flagged cell, right-click to unflag"
-      class={`${BASE_CLASS_NAMES} bg-${backgroundColor} ${
+      class={`${classNames} bg-${backgroundColor} ${
         isActiveGame ? activeGameStyles : inactiveGameStyles
       } p-[4px]`}
       disabled={!isActiveGame}

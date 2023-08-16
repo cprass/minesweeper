@@ -1,11 +1,13 @@
 import Cell from "./Cell.tsx";
 import { game, width } from "../state/signals.ts";
-import { GAP_BASE_SIZE } from "../config/index.ts";
+import useBoardGapSize from "./useBoardGapSize.ts";
 
 export default function Board() {
+  const gapSize = useBoardGapSize();
+
   return (
     <div
-      class={`grid gap-[${GAP_BASE_SIZE}px] grid-cols-${width.value} bg-gray-300 rounded p-[${GAP_BASE_SIZE}px] select-none`}
+      class={`grid gap-[${gapSize.value}px] grid-cols-${width.value} bg-gray-300 rounded p-[${gapSize.value}px] select-none`}
       onContextMenu={(e) => {
         e.preventDefault();
       }}

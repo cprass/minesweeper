@@ -1,4 +1,4 @@
-import { game, gameState, generation, mines } from "../state/signals.ts";
+import { game, gameState, generation, mines, scale } from "../state/signals.ts";
 import {
   batch,
   useComputed,
@@ -7,7 +7,7 @@ import {
 } from "@preact/signals";
 import { GameState } from "../state/types.ts";
 import { quitGame, restartGame } from "../state/actions.ts";
-import { GAP_BASE_SIZE } from "../config/index.ts";
+import useBoardGapSize from "./useBoardGapSize.ts";
 
 export default function Banner() {
   const flagCounter = useComputed(() => {
@@ -35,18 +35,19 @@ export default function Banner() {
     }
   });
 
+  const gapSize = useBoardGapSize();
+
   return (
     <div
-      class={`py-4 px-8 bg-gray-300 mb-[${GAP_BASE_SIZE}px] rounded flex flex-row flex-nowrap`}
+      class={`py-4 px-8 bg-gray-300 mb-[${gapSize.value}px] rounded flex flex-row flex-nowrap`}
     >
       <div class="flex-grow flex justify-start">
         <div>
           <div class="text-center">🚩</div>
           <div class="font-bold font-mono text-center text-2xl text-red-500">
-            {flagCounter.value.toString().padStart(
-              3,
-              flagCounter.value < 0 ? " " : "0",
-            )}
+            {flagCounter.value
+              .toString()
+              .padStart(3, flagCounter.value < 0 ? " " : "0")}
           </div>
         </div>
       </div>

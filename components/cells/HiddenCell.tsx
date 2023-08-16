@@ -1,6 +1,6 @@
 import { game, gameState } from "../../state/signals.ts";
 import { GameState } from "../../state/types.ts";
-import { BASE_CLASS_NAMES } from "./base.ts";
+import { useBaseClassNames } from "./useBaseClassNames.ts";
 import usePointerHandlers from "./usePointerHandlers.ts";
 
 interface HiddenCellProps {
@@ -15,11 +15,12 @@ export default function HiddenCell({ idx, isMine }: HiddenCellProps) {
   const inactiveGameStyles = "cursor-default";
 
   const handlers = usePointerHandlers(idx);
+  const classNames = useBaseClassNames();
 
   return (
     <button
       aria-label="Hidden cell, click to reveil, right-click to place a flag"
-      class={`${BASE_CLASS_NAMES} bg-gray-400 ${
+      class={`${classNames} bg-gray-400 ${
         isActiveGame ? activeGameStyles : inactiveGameStyles
       }`}
       {...handlers}

@@ -1,7 +1,7 @@
-import { Head } from "$fresh/runtime.ts";
 import Footer from "../components/Footer.tsx";
 import Link from "../components/Link.tsx";
 import Game from "../islands/Game.tsx";
+import { Head } from "$fresh/runtime.ts";
 
 function Divider() {
   return <span class="mx-2">&mdash;</span>;
