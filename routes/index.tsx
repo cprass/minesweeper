@@ -20,16 +20,14 @@ export default function Home() {
         <Game />
       </main>
       <Footer>
-        Made by <Link href="https://christiangitter.de">CG</Link>
+        Made by <Link href="https://prass.tech">CP</Link>
         <Divider />
-        <Link href="https://github.com/ChrisGitter/minesweeper/blob/main/LICENSE">
-          GPL-3.0
+        <Link href="https://github.com/cprass/minesweeper/blob/main/LICENSE">
+          AGPL v3.0
         </Link>
         license
         <Divider />
-        <Link href="https://github.com/ChrisGitter/minesweeper/fork">
-          Fork me on Github
-        </Link>
+        <Link href="https://github.com/cprass/minesweeper">Source</Link>
       </Footer>
     </div>
   );
