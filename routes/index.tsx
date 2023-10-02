@@ -23,6 +23,7 @@ export default function Home() {
       <Footer>
         Made by <Link href="https://prass.tech">CP</Link>
         <Divider />
+        Licensed under
         <Link href="https://github.com/cprass/minesweeper/blob/main/LICENSE">
           AGPL-3.0-or-later
         </Link>

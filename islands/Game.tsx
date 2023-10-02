@@ -5,8 +5,11 @@ import { scale, width } from "../state/signals.ts";
 import { useComputed } from "@preact/signals";
 import { CELL_BASE_SIZE, GAP_BASE_SIZE } from "../config/index.ts";
 import Controls from "../components/Controls.tsx";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 
 export default function Game() {
+  if (!IS_BROWSER) return <div>Loading...</div>;
+
   const w = useComputed(() => {
     const cellsWidth = CELL_BASE_SIZE * width.value;
     const gapsInCellsWidth = Math.max(0, GAP_BASE_SIZE * (width.value - 1));
