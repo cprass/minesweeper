@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import Cell from "./Cell.tsx";
 import { game, width } from "../state/signals.ts";
 import useBoardGapSize from "./useBoardGapSize.ts";

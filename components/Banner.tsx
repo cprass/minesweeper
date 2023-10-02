@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { game, gameState, generation, mines, scale } from "../state/signals.ts";
 import {
   batch,

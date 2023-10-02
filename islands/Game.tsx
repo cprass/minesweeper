@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import Banner from "../components/Banner.tsx";
 import Board from "../components/Board.tsx";
 import { scale, width } from "../state/signals.ts";

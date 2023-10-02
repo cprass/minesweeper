@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import Footer from "../components/Footer.tsx";
 import Link from "../components/Link.tsx";
 import Game from "../islands/Game.tsx";
@@ -23,9 +24,8 @@ export default function Home() {
         Made by <Link href="https://prass.tech">CP</Link>
         <Divider />
         <Link href="https://github.com/cprass/minesweeper/blob/main/LICENSE">
-          AGPL v3.0
+          AGPL-3.0-or-later
         </Link>
-        license
         <Divider />
         <Link href="https://github.com/cprass/minesweeper">Source</Link>
       </Footer>

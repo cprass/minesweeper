@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { batch, effect, Signal, signal } from "@preact/signals";
 import { createGame } from "./utils.ts";
 import { CellState, Game, GameState } from "./types.ts";

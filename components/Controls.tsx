@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { useComputed } from "@preact/signals";
 import { mines, scale } from "../state/signals.ts";
 import { ComponentChildren } from "preact";

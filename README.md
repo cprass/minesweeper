@@ -1,4 +1,9 @@
-# fresh project
+# Deno Fresh Minesweeper
+
+## License
+
+The code in this repository is licensed under AGPL-3.0-or-later
+([LICENSE](./LICENSE))
 
 ### Usage
 

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import produce, { enableMapSet } from "immer";
 import { game, gameState, height, mines, width } from "./signals.ts";
 import { CellState, GameState } from "./types.ts";

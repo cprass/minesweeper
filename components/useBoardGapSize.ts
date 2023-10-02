@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { useComputed } from "@preact/signals";
 import { GAP_BASE_SIZE } from "../config/index.ts";
 import { scale } from "../state/signals.ts";

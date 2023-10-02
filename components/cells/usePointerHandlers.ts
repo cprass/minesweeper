@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { useCallback, useEffect, useMemo } from "preact/hooks";
 import { JSX } from "preact";
 import { gameState } from "../../state/signals.ts";
@@ -24,7 +25,7 @@ export default function usePointerHandlers(fieldIdx: number) {
       // cancel the timeout when unmounting the component
       stopTimer();
     },
-    []
+    [],
   );
 
   const onPointerUp = useCallback(
@@ -48,7 +49,7 @@ export default function usePointerHandlers(fieldIdx: number) {
         revealField(fieldIdx);
       }
     },
-    [fieldIdx]
+    [fieldIdx],
   );
 
   const onPointerDown = useCallback(
@@ -69,7 +70,7 @@ export default function usePointerHandlers(fieldIdx: number) {
         }, 500);
       }
     },
-    [fieldIdx]
+    [fieldIdx],
   );
 
   const onPointerLeave = useCallback(() => {
@@ -83,6 +84,6 @@ export default function usePointerHandlers(fieldIdx: number) {
       onPointerUp,
       onPointerLeave,
     }),
-    [onPointerDown, onPointerUp, onPointerLeave]
+    [onPointerDown, onPointerUp, onPointerLeave],
   );
 }

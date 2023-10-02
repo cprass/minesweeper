@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { CellState, CellValue, GameState } from "../state/types.ts";
 import { gameState } from "../state/signals.ts";
 import HiddenCell from "./cells/HiddenCell.tsx";
