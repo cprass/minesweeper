@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { PageProps } from "$fresh/server.ts";
 
 export default function App({ Component }: PageProps) {
