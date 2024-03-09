@@ -22,4 +22,3 @@ jobs:
         with:
           project: "deno-minesweeper"
           entrypoint: "./main.ts"
-          import-map: import_map.json
