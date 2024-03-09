@@ -2,7 +2,6 @@
 import Footer from "../components/Footer.tsx";
 import Link from "../components/Link.tsx";
 import Game from "../islands/Game.tsx";
-import { Head } from "$fresh/runtime.ts";
 
 function Divider() {
   return <span class="mx-2">&mdash;</span>;
@@ -11,9 +10,6 @@ function Divider() {
 export default function Home() {
   return (
     <div class="flex flex-col h-screen w-full items-center">
-      <Head>
-        <title>Minesweeper</title>
-      </Head>
       <header>
         <h1 class="my-6 font-bold">Minesweeper</h1>
       </header>
